@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}
+List and Create
+{% endblock title %}
+
+
+{% block content %}
+
+    
+    <main class="p-5 bg-light-blue">
+      <div class="flex justify-center items-start my-2">
+        <div class=" sm:w-full lg:max-w-4xl xl:max-w-4xl my-1">
+         <div class="flex">
+            <h2 class="text-2xl font-semibold text-vnet-blue mb-2">Personal Todo List</h2>
+            <a href="{% url "create" %}" class="ml-3">
+                <button class="bg-blue-500 px-3 py-1 text-sm shadow-sm font-medium tracking-wider border text-white rounded-md hover:shadow-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-300">Create Task</button>
+            </a>
+         </div>
+          <ul class="flex flex-col">
+            
+            {% for task in tasks %}
+                <li class="bg-white my-2 shadow-lg transform hover:scale-105 hover:shadow-xl transition duration-500 rounded" x-data="accordion({{task.id}})">
+                    <h2
+                        @click="handleClick()"
+                        class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer"
+                    >   
+                        
+                        {% if task.complete == True %}
+                            <span class=" text-lg mr-2 text-green-500">
+                                <i class="fas fa-check"></i>    
+                            </span>
+                            <span class="line-through text-gray-400">{{task.title|slice:"25"}}...</span>
+                        {% else %}
+                            <span class=" text-lg mr-2 text-red-500">
+                                <i class="fas fa-history"></i>    
+                            </span>
+                            <span>{{task.title|slice:"25"}}...</span>
+                        {% endif %}
+                        {% if task.priority == 'Low' %}
+                            <span class="rounded-md py-(3/4) px-2 bg-green-400 text-white text-sm ml-auto">{{task.priority}}</span>
+                        {% elif task.priority == 'Medium'%}
+                            <span class="rounded-md py-(3/4) px-2 bg-yellow-400 text-white text-sm ml-auto">{{task.priority}}</span>
+                        {% elif task.priority == 'High'%}
+                            <span class="rounded-md py-(3/4) px-2 bg-red-400 text-white text-sm ml-auto">{{task.priority}}</span>
+                        {% else %}
+
+                        {% endif %}
+
+                        <div class="hidden md:block">
+                            
+                            <span class="mr-3 ml-3 ">{{task.due_date}}</span>
+                        </div>
+                        
+                        <svg
+                        :class="handleRotate()"
+                        class="ml-5 fill-current text-blue-600 font-bold h-6 w-6 transform transition-transform duration-500"
+                        viewBox="0 0 20 20"
+                        >
+                        <path d="M13.962,8.885l-3.736,3.739c-0.086,0.086-0.201,0.13-0.314,0.13S9.686,12.71,9.6,12.624l-3.562-3.56C5.863,8.892,5.863,8.611,6.036,8.438c0.175-0.173,0.454-0.173,0.626,0l3.25,3.247l3.426-3.424c0.173-0.172,0.451-0.172,0.624,0C14.137,8.434,14.137,8.712,13.962,8.885 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.147,3.374,7.521,7.521,7.521C14.148,17.521,17.521,14.147,17.521,10"></path>
+                        </svg>
+                    </h2>
+                    <div
+                        x-ref="tab"
+                        :style="handleToggle()"
+                        class="border-l-2 border-purple-600 overflow-hidden max-h-0 duration-500 transition-all"
+                    >
+                        <div class="p-3 ml text-gray-900">
+                        <h3 class="text-md font-bold  mb-2">Description</h3>
+                        <p class="bg-blue-50 px-2 py-4 rounded-lg">
+                            {{task.description}}
+                        </p>
+                        </div>
+
+                        <div class="mb-3 mr-auto ml-3">
+                            <a href="{{ task.get_absolute_url }}">
+                                <button class="bg-blue-500 px-5 py-1 text-sm shadow-sm font-medium tracking-wider border text-white rounded-md hover:shadow-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-300">Edit
+                                    <span class=" text-md ml-2 text-white">
+                                        <i class="fas fa-pen"></i>    
+                                    </span>
+                                </button>
+                            </a>
+                            <a href="{% url "delete" task.pk %}">
+                                <button class="bg-red-500 px-4 py-1 text-sm shadow-sm font-medium tracking-wider border text-white rounded-md hover:shadow-lg hover:bg-red-600 focus:ring-2 focus:ring-red-300">Delete
+                                    <span class=" text-md ml-2 text-white">
+                                        <i class="fas fa-trash"></i>    
+                                    </span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+
+          </ul>
+        </div>
+      </div>
+    </main>
+
+{% endblock content %}

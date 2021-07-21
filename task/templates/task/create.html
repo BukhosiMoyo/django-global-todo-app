@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create
+{% endblock title %}
+
+
+{% block content %}
+
+<main class="p-5 bg-light-blue">
+    <div class="flex justify-center items-start my-2">
+        <div class="w-full sm:w-10/12 md:w-1/2 my-1">
+        <h2 class="text-xl font-semibold text-vnet-blue mb-2">Create Todo List</h2>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="mb-5">
+                    
+                    {{form.title}}
+
+                </div>
+                <div class="mb-3">
+
+                    {{form.description}}
+                </div>
+                <div class="mb-3 flex ">
+                    
+                    <span class="mt-(1/2)">{{form.complete}}</span>
+                    <p class="-mb-1 ml-3">Check if task is completed</p>
+                </div>
+                <div class="mb-5">
+                    {{form.due_date}}
+                </div>
+                <div class="mb-5">
+                    {{form.priority}}
+                </div>
+
+                <input
+                    action="action"
+                    onclick="window.history.go(-1); return false;"
+                    type="submit"
+                    value="Cancel"
+                    class="bg-yellow-500 px-4 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-md hover:shadow-lg hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-300"
+                />
+
+                <button class="bg-blue-600 px-4 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-md hover:shadow-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-300">Create Task</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

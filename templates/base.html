@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+
+        {% block title %}
+            Todo List App
+        {% endblock title %}
+        
+        </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+        
+    </head>
+    <body class="h-screen bg-blue-50">
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        {% block content %}
+        
+
+        {% endblock content %}
+
+        <script src="" async defer></script>
+    </body>
+    <script src="https://kit.fontawesome.com/cf24c8e462.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@ryangjchandler/spruce@1.1.0/dist/spruce.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js"></script>
+    <script>
+        Spruce.store('accordion', {
+        tab: 0,
+        });
+
+        const accordion = (idx) => ({
+        handleClick() {
+            this.$store.accordion.tab = this.$store.accordion.tab === idx ? 0 : idx;
+        },
+        handleRotate() {
+            return this.$store.accordion.tab === idx ? 'rotate-180' : '';
+        },
+        handleToggle() {
+            return this.$store.accordion.tab === idx ? `max-height: ${this.$refs.tab.scrollHeight}px` : '';
+        }
+        });
+    </script>
+</html>
