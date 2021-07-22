@@ -19,7 +19,7 @@ List and Create
          </div>
           <ul class="flex flex-col">
             
-            {% for task in tasks %}
+            {% for task in object_list %}
                 <li class="bg-white my-2 shadow-lg transform hover:scale-105 hover:shadow-xl transition duration-500 rounded" x-data="accordion({{task.id}})">
                     <h2
                         @click="handleClick()"
